@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+    id: bean 的唯一标识符，相当于对象名
+    class: bean 对象所对应的类的全限定名（包名 + 类名）
+    -->
+    <bean id="dog" class="com.test.one.Dog"/>
+    <bean id="cat" class="com.test.one.Cat"/>
+
+    <!-- alias：别名，通过别名也可以访问这个对象（原名字依然有效） -->
+    <alias name="cat" alias="catAlias"/>
+
+    <!-- name: 也是别名，且可以同时取多个（这里指的是bean标签下的name） -->
+    <bean id="person" class="com.test.one.Person" name="personAlias">
+        <!--
+        可以通过构造器，注入bean中各个字段的属性
+        name：相当于对象中的变量名
+        value：设置变量的值
+        ref：设置变量所引用的对象
+        -->
+        <constructor-arg name="name" value="ju"/>
+        <constructor-arg name="dog" ref="dog"/>
+        <constructor-arg name="cat" ref="cat"/>
+
+        <!-- 也可以通过set方法，注入bean中各个字段的属性 -->
+        <property name="name" value="ju"/>
+        <property name="dog" ref="dog"/>
+        <property name="cat" ref="catAlias"/>
+    </bean>
+</beans>
